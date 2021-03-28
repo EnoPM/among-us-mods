@@ -226,11 +226,12 @@ ipcMain.handle('update.mod', (e, {url}) => {
                     resolve(false);
                 } else {
                     fs.promises.rmdir(modsFolder + '/' + github.repo, { recursive: true }).then(() => {
-                        fs.createReadStream(info.filePath)
-                            .pipe(unzipper.Extract({path: modsFolder + '/' + github.repo}))
+                        const rs = fs.createReadStream(info.filePath);
+                        rs.pipe(unzipper.Extract({path: modsFolder + '/' + github.repo}))
                             .on('entry', entry => entry.autodrain())
                             .promise().then(() => {
                             fs.promises.unlink(info.filePath).then(async () => {
+                                rs.close();
                                 const result = {
                                     repo: url,
                                     version: git[0].tag_name
@@ -248,31 +249,6 @@ ipcMain.handle('update.mod', (e, {url}) => {
                     });
                 }
             });
-        });
-    });
-});
-
-ipcMain.handle('download.zip', (e, {mod}) => {
-    return new Promise(resolve => {
-        DownloadManager.download({
-            url: mod.zip,
-            onProgress: (progress) => {
-                //console.log(progress);
-                e.sender.send('download.zip.progress', progress);
-            }
-        }, function (error, info) {
-            if (error) {
-                resolve(false);
-            } else {
-                fs.createReadStream(info.filePath)
-                    .pipe(unzipper.Extract({path: modsFolder + '/' + mod.id.toString()}))
-                    .on('entry', entry => entry.autodrain())
-                    .promise().then(() => {
-                        fs.promises.unlink(info.filePath).then(() => {
-                            resolve(true);
-                        });
-                });
-            }
         });
     });
 });
@@ -323,6 +299,7 @@ async function restoreVanillaAmongUs() {
 
 ipcMain.handle('close.app', async e => {
     mainWindow.close();
+    app.quit();
 });
 
 ipcMain.handle('minimize.app', async e => {

@@ -30,7 +30,7 @@ class Mod extends React.Component {
 
     onUpdateClick = e => {
         if(!this.state.updateLoading) {
-            if(this.state.hasUpdate) {
+            if(this.state.hasUpdate && this.state.lastVersion && this.state.lastVersion !== this.props.mod.version) {
                 this.props.onUpdate(this.props.mod.repo);
             } else {
                 this.setState({updateLoading: true}, () => {
@@ -39,6 +39,14 @@ class Mod extends React.Component {
             }
         }
 
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.mod.version !== this.props.mod.version) {
+            this.setState({updateLoading: true}, () => {
+                this.checkUpdate();
+            });
+        }
     }
 
     onUninstallClick = () => {
@@ -74,17 +82,18 @@ class Mod extends React.Component {
 
     render() {
         const data = this.getData();
-        const updateClassName = 'update' + (this.state.updateLoading ? ' loading' : '') + (this.state.hasUpdate ? ' has-update' : '');
-        const updateTitle = this.state.updateLoading ? "Vérification des mises à jour..." : (this.state.hasUpdate ? "Une mise à jour est disponible" : "Vérifier les mises à jour")
+        const hasUpdate = this.state.hasUpdate && this.state.lastVersion && this.state.lastVersion !== this.props.mod.version;
+        const updateClassName = 'update' + (this.state.updateLoading ? ' loading' : '') + (hasUpdate ? ' has-update' : '');
+        const updateTitle = this.state.updateLoading ? "Vérification des mises à jour..." : (hasUpdate ? "Une mise à jour est disponible" : "Vérifier les mises à jour")
         return (
             <li className="mod-item">
                 <div className="infos">
                     <div className="name">
                         {data.name}
-                        <div className={"version" + (this.state.hasUpdate ? ' has-update' : '')}>
+                        <div className={"version" + (hasUpdate? ' has-update' : '')}>
                             {this.props.mod.version}
                         </div>
-                        {this.state.lastVersion ? (
+                        {hasUpdate ? (
                             <>
                                 <div className="arrow">➜</div>
                                 <div className="version">
@@ -105,7 +114,7 @@ class Mod extends React.Component {
                     <div className={updateClassName} title={updateTitle} onClick={this.onUpdateClick}>
                         <UpdateIcon/>
                     </div>
-                    {!this.state.hasUpdate && !this.state.updateLoading ? (
+                    {!hasUpdate && !this.state.updateLoading ? (
                         <div className="play" title="Lancer le jeu" onClick={this.onPlayClick}>
                             <PlayIcon/>
                         </div>
