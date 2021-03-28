@@ -1,0 +1,342 @@
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #2f3136;
+  color: #b9bbbe;
+}
+
+svg {
+  fill: currentColor;
+}
+
+.window-bar {
+  background-color: #202225;
+  padding: 2px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  -webkit-app-region: drag;
+}
+.window-bar .title {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #ffffff;
+}
+.window-bar .title .icon {
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
+.window-bar .control-icons {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.window-bar .control-icons .close, .window-bar .control-icons .minimize {
+  height: 15px;
+  width: 15px;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  cursor: pointer;
+  margin-left: 6px;
+  -webkit-app-region: no-drag;
+}
+.window-bar .control-icons .close .bar, .window-bar .control-icons .minimize .bar {
+  height: 2px;
+  width: 15px;
+  background-color: white;
+}
+.window-bar .control-icons .close svg, .window-bar .control-icons .minimize svg {
+  fill: #9b0e0e;
+  height: 15px;
+  width: 15px;
+}
+
+.content {
+  position: relative;
+  height: calc(100vh - 23px);
+  overflow-y: auto;
+}
+.content .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.content .overlay .modal {
+  position: absolute;
+  background-color: #2f3136;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  border-top: solid 2px #b0a8a8;
+}
+.content .overlay .modal .btn {
+  box-sizing: border-box;
+  border: none;
+  padding: 10px 10px;
+  margin: 10px;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  cursor: pointer;
+}
+.content .overlay .modal .btn.success {
+  background-color: #3d7325;
+}
+.content .overlay .modal .btn.success:hover {
+  background-color: #5eb037;
+}
+.content .overlay .modal .btn.cancel {
+  background-color: #9b0e0e;
+}
+.content .overlay .modal .btn.cancel:hover {
+  background-color: #db2020;
+}
+.content .overlay .modal.modal-download-mod {
+  height: 250px;
+}
+.content .overlay .modal.modal-download-mod .title {
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.content .overlay .modal.modal-download-mod .download {
+  width: 100%;
+  box-sizing: border-box;
+}
+.content .overlay .modal.modal-download-mod .download .info {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.content .overlay .modal.modal-download-mod .download .progress-bar {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #202225;
+  border: solid 1px #202225;
+  height: 4px;
+}
+.content .overlay .modal.modal-download-mod .download .progress-bar .progression {
+  height: 100%;
+  background-color: #5eb037;
+}
+.content .overlay .modal.modal-download-mod .confirm-box .confirm-message {
+  font-size: 1.1rem;
+  text-align: center;
+}
+.content .overlay .modal.modal-download-mod .confirm-box .confirm-buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.content .overlay .modal.modal-add-mod {
+  height: 250px;
+}
+.content .overlay .modal.modal-add-mod .title {
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.content .overlay .modal.modal-add-mod label {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+.content .overlay .modal.modal-add-mod input {
+  background-color: #40444b;
+  border: solid 1px transparent;
+  padding: 5px 3px;
+  outline: none;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+.content .overlay .modal.modal-add-mod input.error {
+  border-color: #db2020;
+}
+.content .overlay .modal.modal-add-mod p.error {
+  margin-top: 2px;
+  font-size: 13px;
+  color: #db2020;
+}
+.content .overlay .modal.modal-add-mod p.description {
+  margin-top: 2px;
+  font-size: 11px;
+}
+.content .overlay .modal.modal-add-mod p.description span {
+  font-style: italic;
+}
+.content .overlay .modal.modal-add-mod .buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.content .overlay .modal.modal-add-mod .buttons .author {
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  font-size: 13px;
+}
+.content .overlay .modal.modal-add-mod .buttons .author .credits {
+  display: flex;
+  align-items: center;
+  color: #3b41ec;
+  cursor: pointer;
+}
+.content .overlay .modal.modal-add-mod .buttons .author .credits svg {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}
+.content .add-mod {
+  box-sizing: border-box;
+  border: none;
+  background-color: #3d7325;
+  padding: 10px 10px;
+  margin: 10px 5px;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  font-weight: bold;
+  cursor: pointer;
+  width: calc(50% - 10px);
+}
+.content .add-mod:hover {
+  background-color: #5eb037;
+}
+.content .play-vanilla {
+  box-sizing: border-box;
+  border: none;
+  background-color: #3b41ec;
+  padding: 10px 10px;
+  margin: 10px 5px;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+  font-weight: bold;
+  cursor: pointer;
+  width: calc(50% - 10px);
+}
+.content .play-vanilla:hover {
+  background-color: #8f94fb;
+}
+.content .mods-list {
+  width: 100%;
+}
+.content .mods-list .mod-item {
+  padding: 7px 7px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.content .mods-list .mod-item .infos .name {
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.content .mods-list .mod-item .infos .name .arrow {
+  font-weight: normal;
+}
+.content .mods-list .mod-item .infos .name .version {
+  font-weight: normal;
+  font-size: 0.7rem;
+  display: block;
+  margin-left: 5px;
+  padding: 1px 4px;
+  background-color: #3d7325;
+}
+.content .mods-list .mod-item .infos .name .version.has-update {
+  background-color: #f17606;
+  margin-right: 5px;
+}
+.content .mods-list .mod-item .infos .github {
+  cursor: pointer;
+  margin-top: 5px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  color: #8f94fb;
+}
+.content .mods-list .mod-item .infos .github svg {
+  height: 15px;
+  width: 15px;
+  margin-right: 4px;
+}
+.content .mods-list .mod-item .buttons {
+  display: flex;
+  align-items: center;
+}
+.content .mods-list .mod-item .buttons svg {
+  height: 30px;
+  width: 30px;
+}
+.content .mods-list .mod-item .buttons .update, .content .mods-list .mod-item .buttons .uninstall, .content .mods-list .mod-item .buttons .play {
+  cursor: pointer;
+  padding: 5px;
+  display: none;
+}
+.content .mods-list .mod-item .buttons .update.has-update, .content .mods-list .mod-item .buttons .uninstall.has-update, .content .mods-list .mod-item .buttons .play.has-update {
+  display: block;
+  color: #f17606;
+}
+.content .mods-list .mod-item .buttons .update.loading, .content .mods-list .mod-item .buttons .uninstall.loading, .content .mods-list .mod-item .buttons .play.loading {
+  display: block;
+  animation: spin 2s linear infinite;
+}
+.content .mods-list .mod-item .buttons .uninstall {
+  color: #ca1111;
+}
+.content .mods-list .mod-item .buttons .uninstall svg {
+  height: 25px;
+  width: 25px;
+}
+.content .mods-list .mod-item:hover {
+  background-color: #393c42;
+}
+.content .mods-list .mod-item:hover .buttons .update, .content .mods-list .mod-item:hover .buttons .uninstall, .content .mods-list .mod-item:hover .buttons .play {
+  display: block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

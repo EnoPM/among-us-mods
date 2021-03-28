@@ -1,0 +1,279 @@
+*
+  margin: 0
+  padding: 0
+  user-select: none
+body
+  font-family: sans-serif
+  background-color: #2f3136
+  color: #b9bbbe
+svg
+  fill: currentColor
+
+.window-bar
+  background-color: #202225
+  padding: 2px 5px
+  display: flex
+  justify-content: space-between
+  align-items: center
+  -webkit-app-region: drag
+  .title
+    height: 100%
+    display: flex
+    align-items: center
+    font-size: 13px
+    color: #ffffff
+    .icon
+      height: 15px
+      width: 15px
+      margin-right: 5px
+  .control-icons
+    height: 100%
+    display: flex
+    align-items: center
+    .close, .minimize
+      height: 15px
+      width: 15px
+      display: flex
+      align-items: center
+      padding: 2px
+      cursor: pointer
+      margin-left: 6px
+      -webkit-app-region: no-drag
+      .bar
+        height: 2px
+        width: 15px
+        background-color: white
+      svg
+        fill: #9b0e0e
+        height: 15px
+        width: 15px
+
+.content
+  position: relative
+  height: calc(100vh - 23px)
+  overflow-y: auto
+  .overlay
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: rgba(0,0,0, 0.4)
+    .modal
+      position: absolute
+      background-color: #2f3136
+      left: 0
+      bottom: 0
+      width: 100%
+      padding: 5px
+      box-sizing: border-box
+      border-top: solid 2px #b0a8a8
+      .btn
+        box-sizing: border-box
+        border: none
+        padding: 10px 10px
+        margin: 10px
+        text-transform: uppercase
+        color: white
+        outline: none
+        cursor: pointer
+        &.success
+          background-color: #3d7325
+          &:hover
+            background-color: #5eb037
+        &.cancel
+          background-color: #9b0e0e
+          &:hover
+            background-color: #db2020
+      &.modal-download-mod
+        height: 250px
+        .title
+          color: #ffffff
+          width: 100%
+          text-align: center
+          font-size: 25px
+          margin-bottom: 20px
+          text-transform: uppercase
+        .download
+          width: 100%
+          box-sizing: border-box
+          .info
+            font-size: 13px
+            margin-bottom: 5px
+          .progress-bar
+            width: 100%
+            box-sizing: border-box
+            background-color: #202225
+            border: solid 1px #202225
+            height: 4px
+            .progression
+              height: 100%
+              background-color: #5eb037
+        .confirm-box
+          .confirm-message
+            font-size: 1.1rem
+            text-align: center
+          .confirm-buttons
+            position: absolute
+            bottom: 0
+            left: 0
+            width: 100%
+            display: flex
+            justify-content: space-between
+            box-sizing: border-box
+      &.modal-add-mod
+        height: 250px
+        .title
+          color: #ffffff
+          width: 100%
+          text-align: center
+          font-size: 25px
+          margin-bottom: 20px
+          text-transform: uppercase
+        label
+          display: block
+          width: 100%
+          margin-bottom: 5px
+          font-size: 14px
+        input
+          background-color: #40444b
+          border: solid 1px transparent
+          padding: 5px 3px
+          outline: none
+          color: white
+          width: 100%
+          box-sizing: border-box
+          &.error
+            border-color: #db2020
+        p.error
+          margin-top: 2px
+          font-size: 13px
+          color: #db2020
+        p.description
+          margin-top: 2px
+          font-size: 11px
+          span
+            font-style: italic
+        .buttons
+          position: absolute
+          bottom: 0
+          left: 0
+          width: 100%
+          display: flex
+          justify-content: space-between
+          box-sizing: border-box
+          .author
+            display: flex
+            align-items: flex-end
+            padding-bottom: 10px
+            padding-left: 10px
+            font-size: 13px
+            .credits
+              display: flex
+              align-items: center
+              color: #3b41ec
+              cursor: pointer
+              svg
+                height: 20px
+                width: 20px
+                margin-right: 5px
+  .add-mod
+    box-sizing: border-box
+    border: none
+    background-color: #3d7325
+    padding: 10px 10px
+    margin: 10px 5px
+    text-transform: uppercase
+    color: white
+    outline: none
+    font-weight: bold
+    cursor: pointer
+    width: calc(50% - 10px)
+    &:hover
+      background-color: #5eb037
+  .play-vanilla
+    box-sizing: border-box
+    border: none
+    background-color: #3b41ec
+    padding: 10px 10px
+    margin: 10px 5px
+    text-transform: uppercase
+    color: white
+    outline: none
+    font-weight: bold
+    cursor: pointer
+    width: calc(50% - 10px)
+    &:hover
+      background-color: #8f94fb
+  .mods-list
+    width: 100%
+    .mod-item
+      padding: 7px 7px
+      box-sizing: border-box
+      width: 100%
+      height: 60px
+      display: flex
+      align-items: center
+      justify-content: space-between
+      overflow: hidden
+      .infos
+        .name
+          font-weight: bold
+          color: white
+          display: flex
+          align-items: center
+          .arrow
+            font-weight: normal
+          .version
+            font-weight: normal
+            font-size: 0.7rem
+            display: block
+            margin-left: 5px
+            padding: 1px 4px
+            background-color: #3d7325
+            &.has-update
+              background-color: #f17606
+              margin-right: 5px
+        .github
+          cursor: pointer
+          margin-top: 5px
+          font-size: 12px
+          display: flex
+          align-items: center
+          color: #8f94fb
+          svg
+            height: 15px
+            width: 15px
+            margin-right: 4px
+      .buttons
+        display: flex
+        align-items: center
+        svg
+          height: 30px
+          width: 30px
+        .update, .uninstall, .play
+          cursor: pointer
+          padding: 5px
+          display: none
+          &.has-update
+            display: block
+            color: #f17606
+          &.loading
+            display: block
+            animation: spin 2s linear infinite
+        .uninstall
+          color: #ca1111
+          svg
+            height: 25px
+            width: 25px
+      &:hover
+        background-color: #393c42
+        .buttons
+          .update, .uninstall, .play
+            display: block
+
+@keyframes spin
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(360deg)
