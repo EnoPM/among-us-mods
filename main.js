@@ -166,33 +166,37 @@ ipcMain.handle('download.mod', (e, {url}) => {
     const github = gh(url);
     return new Promise(resolve => {
         fetchGithubRelease(github.repo).then(git => {
-            DownloadManager.download({
-                url: git[0].assets[0].browser_download_url,
-                onProgress: (progress) => {
-                    //console.log(progress);
-                    e.sender.send('download.mod.progress', progress);
-                }
-            }, function (error, info) {
-                if (error) {
-                    resolve(false);
-                } else {
-                    fs.createReadStream(info.filePath)
-                        .pipe(unzipper.Extract({path: modsFolder + '/' + github.repo}))
-                        .on('entry', entry => entry.autodrain())
-                        .promise().then(() => {
-                        fs.promises.unlink(info.filePath).then(async () => {
-                            const result = {
-                                repo: url,
-                                version: git[0].tag_name
-                            }
-                            const mods = await getMods();
-                            mods.push(result);
-                            await setMods(mods);
-                            resolve(result);
+            const [asset] = git[0].assets.filter(a => a.browser_download_url.endsWith('.zip'));
+            if(asset) {
+                DownloadManager.download({
+                    url: asset.browser_download_url,
+                    onProgress: (progress) => {
+                        //console.log(progress);
+                        e.sender.send('download.mod.progress', progress);
+                    }
+                }, function (error, info) {
+                    if (error) {
+                        resolve(false);
+                    } else {
+                        fs.createReadStream(info.filePath)
+                            .pipe(unzipper.Extract({path: modsFolder + '/' + github.repo}))
+                            .on('entry', entry => entry.autodrain())
+                            .promise().then(() => {
+                            fs.promises.unlink(info.filePath).then(async () => {
+                                const result = {
+                                    repo: url,
+                                    version: git[0].tag_name
+                                }
+                                const mods = await getMods();
+                                mods.push(result);
+                                await setMods(mods);
+                                resolve(result);
+                            });
                         });
-                    });
-                }
-            });
+                    }
+                });
+            }
+
         });
     });
 });
