@@ -65,6 +65,20 @@ svg {
   height: calc(100vh - 23px);
   overflow-y: auto;
 }
+.content .header {
+  display: flex;
+  align-items: center;
+}
+.content .header > svg {
+  height: 30px;
+  width: 30px;
+  margin-left: 3px;
+  cursor: pointer;
+  color: #515151;
+}
+.content .header > svg:hover {
+  color: #604638;
+}
 .content .overlay {
   position: absolute;
   top: 0;
@@ -227,7 +241,7 @@ svg {
   outline: none;
   font-weight: bold;
   cursor: pointer;
-  width: calc(50% - 10px);
+  width: calc(50% - 30px);
 }
 .content .add-mod:hover {
   background-color: #5eb037;
@@ -243,7 +257,7 @@ svg {
   outline: none;
   font-weight: bold;
   cursor: pointer;
-  width: calc(50% - 10px);
+  width: calc(50% - 30px);
 }
 .content .play-vanilla:hover {
   background-color: #8f94fb;
@@ -337,6 +351,72 @@ svg {
   100% {
     transform: rotate(360deg);
   }
+}
+.game-loader {
+  animation: spin 1s infinite linear;
+  border: solid 2vmin transparent;
+  border-radius: 50%;
+  border-right-color: #8f94fb;
+  border-top-color: #8f94fb;
+  box-sizing: border-box;
+  height: 20vmin;
+  left: calc(50% - 10vmin);
+  position: relative;
+  top: calc(50% - 10vmin);
+  width: 20vmin;
+  z-index: 30;
+}
+.game-loader:before {
+  animation: spin 2s infinite linear;
+  border: solid 2vmin transparent;
+  border-radius: 50%;
+  border-right-color: #09f;
+  border-top-color: #09f;
+  box-sizing: border-box;
+  content: "";
+  height: 16vmin;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 16vmin;
+}
+.game-loader:after {
+  animation: spin 3s infinite linear;
+  border: solid 2vmin transparent;
+  border-radius: 50%;
+  border-right-color: #6ff;
+  border-top-color: #6ff;
+  box-sizing: border-box;
+  content: "";
+  height: 12vmin;
+  left: 2vmin;
+  position: absolute;
+  top: 2vmin;
+  width: 12vmin;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.close-process {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.close-process button {
+  padding: 7px 15px;
+  background-color: #9b0e0e;
+  color: #b9bbbe;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+}
+.close-process button:hover {
+  filter: brightness(140%);
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -10,6 +10,8 @@ import DownloadModModal from "./DownloadModModal.jsx";
 import UpdateModModal from "./UpdateModModal.jsx";
 import UninstallModModal from "./UninstallModModal.jsx";
 import UpdateConfigModal from "./UpdateConfigModal.jsx";
+import SettingsIcon from "./Icons/SettingsIcon.jsx";
+import GameLaunchedModal from "./GameLaunchedModal.jsx";
 
 class App extends Component {
 
@@ -19,8 +21,11 @@ class App extends Component {
         downloadRepo: null,
         updateRepo: null,
         uninstallRepo: null,
-        configApp: false
+        configApp: false,
+        amongUsIsRunning: false
     }
+
+    interval = null;
 
     componentDidMount() {
         SystemController.checkConfig().then(isConfigured => {
@@ -31,6 +36,22 @@ class App extends Component {
         SystemController.getMods().then(mods => {
             this.setState({mods});
         });
+        this.interval = setInterval(async () => {
+            if(await SystemController.checkAmongUsProcess()) {
+                if(this.state.amongUsIsRunning === false) {
+                    this.setState({amongUsIsRunning: true});
+                }
+            } else {
+                if(this.state.amongUsIsRunning === true) {
+                    await SystemController.clearAmongUsFolder();
+                    this.setState({amongUsIsRunning: false});
+                }
+            }
+        }, 1000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     checkConfig = () => {
@@ -113,6 +134,10 @@ class App extends Component {
         await SystemController.playVanilla();
     }
 
+    showConfigApp = () => {
+        this.setState({configApp: true});
+    }
+
     render() {
         return (
             <div>
@@ -131,16 +156,19 @@ class App extends Component {
                     </div>
                 </div>
                 <div className="content">
-                    <button className="add-mod" onClick={this.showAddMod}>
-                        Ajouter un mod
-                    </button>
-                    <button className="play-vanilla" onClick={this.onPlayVanillaClick}>
-                        Lancer Among Us
-                    </button>
+                    <div className="header">
+                        <button className="add-mod" onClick={this.showAddMod}>
+                            Ajouter un mod
+                        </button>
+                        <button className="play-vanilla" onClick={this.onPlayVanillaClick}>
+                            Jouer sans mod
+                        </button>
+                        <SettingsIcon onClick={this.showConfigApp}/>
+                    </div>
                     <ModsList onPlay={this.playMod} onUninstall={this.showUninstall} onUpdate={this.showUpdate} mods={this.state.mods}/>
                     {this.state.configApp ? (
                         <UpdateConfigModal closeModal={this.checkConfig}/>
-                    ) : null}
+                    ) : (this.state.amongUsIsRunning ? (<GameLaunchedModal/>) : null)}
                     {this.state.showAddMod ? (
                         <AddModModal onSubmit={this.showDownload} closeModal={this.hideAddMod}/>
                     ) : null}

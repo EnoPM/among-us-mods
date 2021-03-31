@@ -74,6 +74,18 @@ export class SystemController {
         return await this._triggerAsync('update.config', {amongUsFilePath});
     }
 
+    static async checkAmongUsProcess() {
+        return await this._triggerAsync('check.among-us.running');
+    }
+
+    static async clearAmongUsFolder() {
+        return await this._triggerAsync('clear.among-us.folder');
+    }
+
+    static async killAmongUsProcess() {
+        return await this._triggerAsync('kill.among-us');
+    }
+
     static on(name, cb) {
         ipcRenderer.addListener(name, cb);
     }

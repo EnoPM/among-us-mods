@@ -12,6 +12,12 @@ const {exec, execFile} = require('child_process');
 const os = require ('os');
 const gh = require('parse-github-url');
 const lnk = require('lnk');
+const psList = require('ps-list');
+const process = require('process');
+
+
+const VANILLA_FILES = ['Among Us_Data', 'Among Us.exe', 'GameAssembly.dll', 'UnityCrashHandler32.exe', 'UnityPlayer.dll'];
+
 
 let mainWindow;
 let dev = false; // Determine the mode (dev or production)
@@ -149,9 +155,12 @@ ipcMain.handle('get.mods', async e => {
 });
 
 ipcMain.handle('update.config', async (e, {amongUsFilePath}) => {
-    if(fs.existsSync(amongUsFilePath)) {
-        await setStorage('config', {amongUsFolder: amongUsFilePath});
-        return true;
+    if(fs.existsSync(amongUsFilePath) && amongUsFilePath.endsWith('Among Us.exe')) {
+        const folderPath = amongUsFilePath.replace('Among Us.exe', '');
+        if(VANILLA_FILES.map(fileName => fs.existsSync(folderPath + fileName))) {
+            await setStorage('config', {amongUsFolder: amongUsFilePath});
+            return true;
+        }
     } else {
         return false;
     }
@@ -285,7 +294,6 @@ function execCmd(command) {
 
 async function restoreVanillaAmongUs() {
     const amongUsFolder = await getAmongUsInstallationFolderPath();
-    const VANILLA_FILES = ['Among Us_Data', 'Among Us.exe', 'GameAssembly.dll', 'UnityCrashHandler32.exe', 'UnityPlayer.dll'];
     const files = await fs.promises.readdir(amongUsFolder);
     for (const file of files) {
         if(!VANILLA_FILES.includes(file)) {
@@ -340,6 +348,25 @@ ipcMain.handle('play.vanilla', async (e) => {
 ipcMain.handle('open.link', async (e, {link}) => {
     await shell.openExternal(link);
     return true;
+});
+
+ipcMain.handle('check.among-us.running', async e => {
+    const openedProcess = await psList();
+    const [amongUsProcess] = openedProcess.filter(proc => proc.name === 'Among Us.exe');
+    return amongUsProcess ? amongUsProcess.pid : null;
+});
+
+ipcMain.handle('clear.among-us.folder', async e => {
+    await restoreVanillaAmongUs();
+});
+
+ipcMain.handle('kill.among-us', async e => {
+    const openedProcess = await psList();
+    const amongUsProcess = openedProcess.filter(proc => proc.name === 'Among Us.exe');
+    if(amongUsProcess.length > 0) {
+        amongUsProcess.forEach(proc => process.kill(proc.pid));
+    }
+
 });
 
 DownloadManager.register({

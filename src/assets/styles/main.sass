@@ -52,6 +52,17 @@ svg
   position: relative
   height: calc(100vh - 23px)
   overflow-y: auto
+  .header
+    display: flex
+    align-items: center
+    & > svg
+      height: 30px
+      width: 30px
+      margin-left: 3px
+      cursor: pointer
+      color: #515151
+      &:hover
+        color: #604638
   .overlay
     position: absolute
     top: 0
@@ -188,7 +199,7 @@ svg
     outline: none
     font-weight: bold
     cursor: pointer
-    width: calc(50% - 10px)
+    width: calc(50% - 30px)
     &:hover
       background-color: #5eb037
   .play-vanilla
@@ -202,7 +213,7 @@ svg
     outline: none
     font-weight: bold
     cursor: pointer
-    width: calc(50% - 10px)
+    width: calc(50% - 30px)
     &:hover
       background-color: #8f94fb
   .mods-list
@@ -277,3 +288,63 @@ svg
     transform: rotate(0deg)
   100%
     transform: rotate(360deg)
+
+.game-loader
+  animation: spin 1s infinite linear
+  border: solid 2vmin transparent
+  border-radius: 50%
+  border-right-color: #8f94fb
+  border-top-color: #8f94fb
+  box-sizing: border-box
+  height: 20vmin
+  left: calc(50% - 10vmin)
+  position: relative
+  top: calc(50% - 10vmin)
+  width: 20vmin
+  z-index: 30
+  &:before
+    animation: spin 2s infinite linear
+    border: solid 2vmin transparent
+    border-radius: 50%
+    border-right-color: #09f
+    border-top-color: #09f
+    box-sizing: border-box
+    content: ""
+    height: 16vmin
+    left: 0
+    position: absolute
+    top: 0
+    width: 16vmin
+  &:after
+    animation: spin 3s infinite linear
+    border: solid 2vmin transparent
+    border-radius: 50%
+    border-right-color: #6ff
+    border-top-color: #6ff
+    box-sizing: border-box
+    content: ""
+    height: 12vmin
+    left: 2vmin
+    position: absolute
+    top: 2vmin
+    width: 12vmin
+
+@keyframes spin
+  100%
+    transform: rotate(360deg)
+
+.close-process
+  margin-top: 30px
+  width: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  button
+    padding: 7px 15px
+    background-color: #9b0e0e
+    color: #b9bbbe
+    font-size: 20px
+    cursor: pointer
+    border: none
+    &:hover
+      filter: brightness(140%)

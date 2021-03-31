@@ -5,7 +5,7 @@ class SettingsIcon extends Component {
 
     render() {
         return (
-            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"x="0px" y="0px" viewBox="0 0 438.529 438.529">
+            <svg {...this.props} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"x="0px" y="0px" viewBox="0 0 438.529 438.529">
                 <g>
                     <path d="M436.25,181.438c-1.529-2.002-3.524-3.193-5.995-3.571l-52.249-7.992c-2.854-9.137-6.756-18.461-11.704-27.98
 		c3.422-4.758,8.559-11.466,15.41-20.129c6.851-8.661,11.703-14.987,14.561-18.986c1.523-2.094,2.279-4.281,2.279-6.567

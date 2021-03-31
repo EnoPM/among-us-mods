@@ -14,10 +14,18 @@ class UpdateConfigModal extends React.Component {
     };
 
     onSubmit = async () => {
-        if(await SystemController.updateConfig(this.state.amongUsFilePath)) {
-            this.props.closeModal();
+        if(this.state.amongUsFilePath === '') {
+            if(await SystemController.checkConfig()) {
+                this.props.closeModal();
+            } else {
+                this.setState({error: true});
+            }
         } else {
-            this.setState({error: true});
+            if(await SystemController.updateConfig(this.state.amongUsFilePath)) {
+                this.props.closeModal();
+            } else {
+                this.setState({error: true});
+            }
         }
     }
 
