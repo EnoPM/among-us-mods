@@ -16,7 +16,7 @@ const psList = require('ps-list');
 const process = require('process');
 
 
-const VANILLA_FILES = ['Among Us_Data', 'Among Us.exe', 'GameAssembly.dll', 'UnityCrashHandler32.exe', 'UnityPlayer.dll'];
+const VANILLA_FILES = ['Among Us_Data', 'Among Us.exe', 'GameAssembly.dll', 'UnityCrashHandler32.exe', 'UnityPlayer.dll', 'baselib.dll', 'UnityCrashHandler64.exe'];
 
 
 let mainWindow;
