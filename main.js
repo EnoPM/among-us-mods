@@ -366,7 +366,6 @@ ipcMain.handle('kill.among-us', async e => {
     if(amongUsProcess.length > 0) {
         amongUsProcess.forEach(proc => process.kill(proc.pid));
     }
-
 });
 
 DownloadManager.register({

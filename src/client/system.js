@@ -1,4 +1,5 @@
 import {ipcRenderer} from 'electron';
+
 export class SystemController {
 
     static async getStorage(name) {
