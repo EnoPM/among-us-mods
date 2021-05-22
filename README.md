@@ -9,7 +9,7 @@ La gestion des mods pour Among Us simplifiée au maximum. Grâce à cette applic
 ## Sommaire
 - [Première utilisation](#première-utilisation)
 - [Fonctionnalités](#fonctionnalités)
-- [Compatibilité](#compatibilité)
+- [Compatibilité des mods](#compatibilité-des-mods)
 - [Signaler un problème](#signaler-un-problème)
 - [Contributions](#contributions)
 
@@ -48,7 +48,7 @@ Vous devrez sélectionner l'exécutable `Among Us.exe` que l'application utilise
 
 ![Among Us en cours d'exécution](./documentation/among-us-running.png)
 
-### Compatibilité
+### Compatibilité des mods
 Les mods qui souhaitent être compatible avec cette application doivent respecter certains critères :
 - Disposer d'une archive `.zip` dans chaque release de version content la version BepInEx compatible et le plugin `.dll` du mod.
 - (optionnel) Disposer du plugin `.dll` dans chaque release uniquement si la release précédente utilise la même version de BepInEx.
