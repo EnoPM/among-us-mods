@@ -37,6 +37,9 @@ Vous devrez sélectionner l'exécutable `Among Us.exe` que l'application utilise
 - Ajouter un serveur privé.
 
 ![Ajouter un serveur privé](./documentation/add-private-server.png)
+- Impossible d'intéragir avec l'application si `Among Us` est lancé.
+
+![Among Us en cours d'exécution](./documentation/among-us-running.png)
   
 ### Signaler un problème
 Verifier si le problème rencontré n'a pas déjà été signalé dans [les issues](https://github.com/clicpanel/among-us-mod-manager/issues). Si ça n'est pas le cas vous pouvez [ouvrir une nouvelle issue](https://github.com/clicpanel/among-us-mods/issues/new).
