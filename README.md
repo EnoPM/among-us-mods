@@ -1,4 +1,4 @@
-# Among Us - Mods v3.0.0
+# [Among Us - Mods v3.0.0](https://github.com/clicpanel/among-us-mods)
 ## Gestionnaire de mod pour Among Us
 La gestion des mods pour Among Us simplifiée au maximum. Grâce à cette application vous pourrez installer, mettre à jour et restaurer une version précédente des mods Among Us sans aucune manipulation.
 
@@ -22,6 +22,9 @@ Vous devrez sélectionner l'exécutable `Among Us.exe` que l'application utilise
 - Ouvrir le dépôt, le dossier, restaurer une version précédente ou désinstaller simplement avec un clique-droit.
 
 ![Paramètres avancés d'un mod](./documentation/mods-list-context-menu.png)
+- Restaurer une version précédente d'un mod installé.
+
+![Restaurer une version précédente](./documentation/restore-previous-version.png)
 - L'application informe de la dernière version disponible si celle-ci n'est pas déjà installée.
 
 ![Mod avec une mise à jour](./documentation/mod-with-new-version.png)
