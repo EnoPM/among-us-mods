@@ -12,6 +12,12 @@ import UninstallModModal from "./UninstallModModal.jsx";
 import UpdateConfigModal from "./UpdateConfigModal.jsx";
 import SettingsIcon from "./Icons/SettingsIcon.jsx";
 import GameLaunchedModal from "./GameLaunchedModal.jsx";
+import PlusIcon from "./Icons/PlusIcon.jsx";
+import GlobeIcon from "./Icons/GlobeIcon.jsx";
+import Button from "./Parts/Button.jsx";
+import RestoreAppDataModal from "./RestoreAppDataModal.jsx";
+import UpdateVersionModModal from "./UpdateVersionModModal.jsx";
+import PrivateServersModal from "./PrivateServersModal.jsx";
 
 class App extends Component {
 
@@ -22,7 +28,11 @@ class App extends Component {
         updateRepo: null,
         uninstallRepo: null,
         configApp: false,
-        amongUsIsRunning: false
+        restoreAppData: false,
+        amongUsIsRunning: false,
+        currentSelection: null,
+        updateRepoVersion: null,
+        privateServersModal: true
     }
 
     interval = null;
@@ -47,11 +57,30 @@ class App extends Component {
                     this.setState({amongUsIsRunning: false});
                 }
             }
-        }, 1000)
+        }, 1000);
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
+    }
+
+    showPrivateServers = () => {
+        this.setState({privateServersModal: true});
+    }
+
+    hidePrivateServers = () => {
+        this.setState({privateServersModal: false});
+    }
+
+    changeCurrentSelection = currentSelection => {
+        this.setState({currentSelection});
+    }
+
+    resetCurrentSelection = e => {
+        if(e) {
+            e.stopPropagation();
+        }
+        this.setState({currentSelection: null});
     }
 
     checkConfig = () => {
@@ -74,6 +103,14 @@ class App extends Component {
 
     hideUpdate = () => {
         this.setState({updateRepo: null});
+    }
+
+    showUpdateVersion = updateRepo => {
+        this.setState({updateRepoVersion: updateRepo});
+    }
+
+    hideUpdateVersion = () => {
+        this.setState({updateRepoVersion: null});
     }
 
     showUninstall = uninstallRepo => {
@@ -99,20 +136,36 @@ class App extends Component {
     onMinimizeClick = async e => {
         await SystemController.minimizeApp();
     }
+
+    onRestoreAppDataClick = () => {
+        this.setState({restoreAppData: true});
+    }
+
+    hideRestoreAppData = () => {
+        this.setState({restoreAppData: false});
+    }
+
     addMod = mod => {
-        const {mods} = this.state;
-        mods.push(mod);
-        this.setState({mods});
+        if(mod) {
+            const {mods} = this.state;
+            mods.push(mod);
+            this.setState({mods}, () => {
+                this.changeCurrentSelection(mod.repo);
+            });
+        }
+
     }
 
     updateMod = mod => {
-        const {mods} = this.state;
-        for (const k in mods) {
-            if(mods[k].repo === mod.repo) {
-                mods[k].version = mod.version;
+        if(mod) {
+            const {mods} = this.state;
+            for (const k in mods) {
+                if(mods[k].repo === mod.repo) {
+                    mods[k].version = mod.version;
+                }
             }
+            this.setState({mods});
         }
-        this.setState({mods});
     }
 
     removeMod = repo => {
@@ -123,19 +176,25 @@ class App extends Component {
                 break;
             }
         }
-        this.setState({mods});
+        this.setState({mods}, () => {
+            this.resetCurrentSelection();
+        });
     }
 
     playMod = async repo => {
         await SystemController.playMod(repo);
     }
 
-    onPlayVanillaClick = async () => {
-        await SystemController.playVanilla();
-    }
-
     showConfigApp = () => {
         this.setState({configApp: true});
+    }
+
+    onPlayClick = async () => {
+        if(this.state.currentSelection) {
+            await this.playMod(this.state.currentSelection);
+        } else {
+            await SystemController.playVanilla();
+        }
     }
 
     render() {
@@ -157,18 +216,35 @@ class App extends Component {
                 </div>
                 <div className="content">
                     <div className="header">
-                        <button className="add-mod" onClick={this.showAddMod}>
-                            Ajouter un mod
-                        </button>
-                        <button className="play-vanilla" onClick={this.onPlayVanillaClick}>
-                            Jouer sans mod
-                        </button>
-                        <SettingsIcon onClick={this.showConfigApp}/>
+                        <div className="left-buttons">
+                            <button className="add-mod" onClick={this.showAddMod} title="Ajouter un mod">
+                                <PlusIcon/>
+                            </button>
+                            <button className="manage-servers" title="Gérer les serveurs privés" onClick={this.showPrivateServers}>
+                                <GlobeIcon/>
+                            </button>
+                        </div>
+                        <div className="right-buttons">
+                            <div className="settings" title="Paramètres">
+                                <SettingsIcon onClick={this.showConfigApp}/>
+                            </div>
+                        </div>
                     </div>
-                    <ModsList onPlay={this.playMod} onUninstall={this.showUninstall} onUpdate={this.showUpdate} mods={this.state.mods}/>
+                    <ModsList onUpdateVersion={this.showUpdateVersion} resetCurrentSelection={this.resetCurrentSelection} changeCurrentSelection={this.changeCurrentSelection} currentSelection={this.state.currentSelection} onPlay={this.playMod} onUninstall={this.showUninstall} onUpdate={this.showUpdate} mods={this.state.mods}/>
+                    <div className={"play-button" + (this.state.currentSelection ? '' : " vanilla")}>
+                        <Button onClick={this.onPlayClick}
+                                width={400}
+                                height={60}
+                                color={this.state.currentSelection ? '#3b41ec' : '#3b8616'}
+                                hoverColor={this.state.currentSelection ? '#696ef1' : '#5eb037'}
+                                textColor="#FFFFFF"
+                                hoverTextColor="#FFFFFF">
+                            {this.state.currentSelection ? "Lancer le mod" : "Lancer Among Us"}
+                        </Button>
+                    </div>
                     {this.state.configApp ? (
-                        <UpdateConfigModal closeModal={this.checkConfig}/>
-                    ) : (this.state.amongUsIsRunning ? (<GameLaunchedModal/>) : null)}
+                        <UpdateConfigModal closeModal={this.checkConfig} restoreAppData={this.onRestoreAppDataClick}/>
+                    ) : null}
                     {this.state.showAddMod ? (
                         <AddModModal onSubmit={this.showDownload} closeModal={this.hideAddMod}/>
                     ) : null}
@@ -178,9 +254,19 @@ class App extends Component {
                     {this.state.updateRepo ? (
                         <UpdateModModal updateMod={this.updateMod} hideModal={this.hideUpdate} repo={this.state.updateRepo}/>
                     ) : null}
+                    {this.state.updateRepoVersion ? (
+                        <UpdateVersionModModal updateMod={this.updateMod} hideModal={this.hideUpdateVersion} repo={this.state.updateRepoVersion}/>
+                    ) : null}
                     {this.state.uninstallRepo ? (
                         <UninstallModModal removeMod={this.removeMod} hideModal={this.hideUninstall} repo={this.state.uninstallRepo}/>
                     ) : null}
+                    {this.state.restoreAppData ? (
+                        <RestoreAppDataModal hideModal={this.hideRestoreAppData}/>
+                    ) : null}
+                    {this.state.privateServersModal ? (
+                        <PrivateServersModal closeModal={this.hidePrivateServers}/>
+                    ) : null}
+                    {this.state.amongUsIsRunning ? (<GameLaunchedModal/>) : null}
                 </div>
             </div>
         );

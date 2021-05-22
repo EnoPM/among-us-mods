@@ -1,6 +1,9 @@
 import 'regenerator-runtime/runtime';
 import React from "react";
 import {SystemController} from "../client/system";
+import ModalWindow from "./ModalWindow.jsx";
+import Button from "./Parts/Button.jsx";
+import UninstallIcon from "./Icons/UninstallIcon.jsx";
 
 class UninstallModModal extends React.Component {
 
@@ -21,26 +24,32 @@ class UninstallModModal extends React.Component {
     render() {
         const data = this.getData();
         return (
-            <div className="overlay">
-                <div className="modal modal-download-mod">
-                    <div className="title" onClick={this.props.hideModal}>
+            <ModalWindow title="Désinstaller" close={this.props.hideModal}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    height: 'calc(100% - 120px)'
+                }}>
+                    <div className="big-icon" style={{marginTop: 70}}>
+                        <UninstallIcon/>
+                    </div>
+                    <div style={{margin: '3px 30px', textAlign: 'center'}}>
+                        Voulez-vous vraiment désinstaller le mod <span
+                        style={{fontWeight: 'bold', color: '#5555ca'}}>{data.name}</span>?
+                    </div>
+                    <Button onClick={this.uninstall}
+                            width={350}
+                            height={60}
+                            color={"#861616"}
+                            hoverColor={"#b03737"}
+                            textColor="#FFFFFF"
+                            hoverTextColor="#FFFFFF">
                         Désinstaller
-                    </div>
-                    <div className="confirm-box">
-                        <div className="confirm-message">
-                            Voulez-vous vraiment désinstaller le mod <span>{data.name}</span> ?
-                        </div>
-                        <div className="confirm-buttons">
-                            <div className="btn cancel" onClick={this.props.hideModal}>
-                                Non
-                            </div>
-                            <div className="btn success" onClick={this.uninstall}>
-                                Oui
-                            </div>
-                        </div>
-                    </div>
+                    </Button>
                 </div>
-            </div>
+            </ModalWindow>
         );
     }
 }

@@ -8,6 +8,141 @@ body
   color: #b9bbbe
 svg
   fill: currentColor
+.advanced
+  width: 100%
+  .advanced-content
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin-top: 15px
+    button.button
+      margin: 7px 0
+      span
+        font-size: 13px
+  .advanced-selector
+    display: flex
+    align-items: center
+    font-weight: bold
+    cursor: pointer
+    color: #a3a49e
+    font-size: 15px
+    svg
+      height: 13px
+      width: 13px
+      margin: 0 5px
+p.error
+  margin-top: 2px
+  font-size: 13px
+  color: #db2020
+.big-icon
+  svg
+    width: 200px
+    height: 200px
+    transition: 300ms ease-in-out
+  &:hover
+    svg
+      fill: rgb(37, 81, 169)
+      transition: 300ms ease-in-out
+.credits
+  display: flex
+  align-items: center
+  color: #3b41ec
+  cursor: pointer
+  font-size: 25px
+  svg
+    height: 30px
+    width: 30px
+    margin-right: 10px
+.label-text
+  display: block
+  width: 100%
+  margin-bottom: 5px
+  font-size: 14px
+  font-weight: bold
+  cursor: pointer
+.input-text
+  background-color: #40444b
+  border: solid 1px transparent
+  padding: 5px 3px
+  outline: none
+  color: white
+  width: 100%
+  box-sizing: border-box
+  &.error
+    border-color: #db2020
+.modal-window
+  position: absolute
+  height: 100%
+  width: 100%
+  left: 0
+  top: 0
+  background-color: #2f3136
+  padding: 5px
+  box-sizing: border-box
+  border-top: solid 2px #b0a8a8
+  .close-button
+    position: absolute
+    top: 10px
+    left: 10px
+    cursor: pointer
+    svg
+      height: 30px
+      width: 30px
+      fill: #b9bbbe
+    &:hover
+      svg
+        fill: #707070
+  .title
+    color: #ffffff
+    width: 100%
+    text-align: center
+    font-size: 25px
+    margin-bottom: 20px
+    margin-top: 20px
+    text-transform: uppercase
+
+.button
+  width: var(--btn-width)
+  height: var(--btn-height)
+  cursor: pointer
+  background: var(--btn-color)
+  border: 1px solid var(--btn-text-color)
+  outline: none
+  transition: 1s ease-in-out
+  position: relative
+  span
+    color: var(--btn-text-color)
+    font-size: 18px
+    font-weight: 100
+    text-transform: uppercase
+  &:hover
+    transition: 1s ease-in-out
+    background: var(--btn-hover-color)
+    span
+      color: var(--btn-text-hover-color)
+    svg.button-border
+      stroke-dashoffset: var(--btn-stroke-dashoffset1)
+  svg.button-border
+    position: absolute
+    left: 0
+    top: 0
+    fill: none
+    stroke: var(--btn-text-color)
+    stroke-dasharray: var(--btn-stroke-dasharray1) var(--btn-stroke-dasharray2)
+    stroke-dashoffset: var(--btn-stroke-dashoffset2)
+    transition: 1s ease-in-out
+
+.react-contextmenu
+  background-color: #202225
+  .react-contextmenu-item
+    padding: 5px 5px
+    font-size: 13px
+    .danger
+      color: red
+      font-weight: bold
+    &:hover
+      background-color: rgba(37, 81, 169, 0.53)
 
 .window-bar
   background-color: #202225
@@ -55,14 +190,19 @@ svg
   .header
     display: flex
     align-items: center
-    & > svg
-      height: 30px
-      width: 30px
-      margin-left: 3px
-      cursor: pointer
-      color: #515151
-      &:hover
-        color: #604638
+    justify-content: space-between
+    background-color: #252529
+    .right-buttons
+      margin-right: 10px
+      svg
+        height: 25px
+        width: 25px
+        margin: 5px
+        cursor: pointer
+        color: #515151
+        &:hover
+          color: #604638
+          animation: spin 4s infinite linear
   .overlay
     position: absolute
     top: 0
@@ -71,6 +211,7 @@ svg
     height: 100%
     background-color: rgba(0,0,0, 0.4)
     .modal
+      height: 100%
       position: absolute
       background-color: #2f3136
       left: 0
@@ -96,31 +237,37 @@ svg
           background-color: #9b0e0e
           &:hover
             background-color: #db2020
-      &.modal-download-mod
-        height: 250px
-        .title
-          color: #ffffff
-          width: 100%
-          text-align: center
-          font-size: 25px
-          margin-bottom: 20px
-          text-transform: uppercase
-        .download
+      .title
+        color: #ffffff
+        width: 100%
+        text-align: center
+        font-size: 25px
+        margin-bottom: 20px
+        margin-top: 20px
+        text-transform: uppercase
+      .download
+        width: 100%
+        box-sizing: border-box
+        .info
+          font-size: 13px
+          margin-bottom: 5px
+        .progress-bar
           width: 100%
           box-sizing: border-box
-          .info
-            font-size: 13px
-            margin-bottom: 5px
-          .progress-bar
-            width: 100%
-            box-sizing: border-box
-            background-color: #202225
-            border: solid 1px #202225
-            height: 4px
-            .progression
-              height: 100%
-              background-color: #5eb037
+          background-color: #202225
+          border: solid 1px #202225
+          height: 4px
+          .progression
+            height: 100%
+            background-color: #5eb037
         .confirm-box
+          display: flex
+          flex-direction: column
+          justify-content: space-between
+          padding-bottom: 30px
+          padding-top: 20px
+          box-sizing: border-box
+          align-items: center
           .confirm-message
             font-size: 1.1rem
             text-align: center
@@ -133,7 +280,7 @@ svg
             justify-content: space-between
             box-sizing: border-box
       &.modal-add-mod
-        height: 250px
+        height: 100%
         .title
           color: #ffffff
           width: 100%
@@ -146,6 +293,8 @@ svg
           width: 100%
           margin-bottom: 5px
           font-size: 14px
+          font-weight: bold
+          cursor: pointer
         input
           background-color: #40444b
           border: solid 1px transparent
@@ -162,9 +311,10 @@ svg
           color: #db2020
         p.description
           margin-top: 2px
-          font-size: 11px
+          font-size: 12px
           span
-            font-style: italic
+            padding: 2px
+            background-color: black
         .buttons
           position: absolute
           bottom: 0
@@ -173,35 +323,59 @@ svg
           display: flex
           justify-content: space-between
           box-sizing: border-box
-          .author
+        .author
+          display: flex
+          align-items: flex-end
+          padding-bottom: 10px
+          padding-left: 10px
+          font-size: 15px
+          margin-bottom: 10px
+          .text
+            font-weight: bold
+            margin-right: 10px
+          .credits
             display: flex
-            align-items: flex-end
-            padding-bottom: 10px
-            padding-left: 10px
-            font-size: 13px
-            .credits
-              display: flex
-              align-items: center
-              color: #3b41ec
-              cursor: pointer
-              svg
-                height: 20px
-                width: 20px
-                margin-right: 5px
-  .add-mod
-    box-sizing: border-box
-    border: none
-    background-color: #3d7325
-    padding: 10px 10px
-    margin: 10px 5px
-    text-transform: uppercase
-    color: white
-    outline: none
-    font-weight: bold
-    cursor: pointer
-    width: calc(50% - 30px)
-    &:hover
-      background-color: #5eb037
+            align-items: center
+            color: #3b41ec
+            cursor: pointer
+            svg
+              height: 20px
+              width: 20px
+              margin-right: 5px
+  .left-buttons
+    display: flex
+    .add-mod
+      box-sizing: border-box
+      border: none
+      padding: 5px
+      margin: 10px 5px
+      outline: none
+      font-weight: bold
+      cursor: pointer
+      background: transparent
+      svg
+        height: 25px
+        width: 25px
+        fill: #3d7325
+      &:hover
+        svg
+          fill: #5eb037
+    .manage-servers
+      box-sizing: border-box
+      border: none
+      padding: 5px
+      margin: 10px 0
+      outline: none
+      font-weight: bold
+      cursor: pointer
+      background: transparent
+      svg
+        height: 25px
+        width: 25px
+        fill: #3b41ec
+      &:hover
+        svg
+          fill: #8f94fb
   .play-vanilla
     box-sizing: border-box
     border: none
@@ -216,13 +390,26 @@ svg
     width: calc(50% - 30px)
     &:hover
       background-color: #8f94fb
+  .play-button
+    position: absolute
+    bottom: 40px
+    left: 0
+    height: 60px
+    width: 100%
+    box-sizing: border-box
+    font-size: 20px
+    display: flex
+    justify-content: center
+    align-items: center
   .mods-list
     width: 100%
+    height: calc(100vh - 160px)
+    overflow: auto
     .mod-item
       padding: 7px 7px
       box-sizing: border-box
       width: 100%
-      height: 60px
+      height: 65px
       display: flex
       align-items: center
       justify-content: space-between
@@ -262,7 +449,7 @@ svg
         svg
           height: 30px
           width: 30px
-        .update, .uninstall, .play
+        .update, .uninstall, .open-folder
           cursor: pointer
           padding: 5px
           display: none
@@ -277,11 +464,17 @@ svg
           svg
             height: 25px
             width: 25px
+      &.selected
+        border-left: solid 5px #2551a9
+        background-color: rgba(37, 81, 169, 0.27)
+        .buttons
+          .update, .uninstall, .open-folder
+            display: block
+        &:hover
+          border-left: solid 5px #406ac1
       &:hover
         background-color: #393c42
-        .buttons
-          .update, .uninstall, .play
-            display: block
+        background-color: rgba(37, 81, 169, 0.53)
 
 @keyframes spin
   0%

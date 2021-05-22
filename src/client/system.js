@@ -21,15 +21,38 @@ export class SystemController {
         });
     }
 
+    static clearLocalAppdata = async () => {
+        return this._triggerAsync('clear.local.appdata');
+    }
+
+    static async openFolder(url) {
+        return this._triggerAsync('open.folder', {
+            url
+        });
+    }
+
     static async downloadMod(repo) {
         return this._triggerAsync('download.mod', {
             url: repo
         });
     }
 
-    static async updateMod(repo) {
+    static async openConsole() {
+        return this._triggerAsync('open.console');
+    }
+
+    static async getRegions() {
+        return this._triggerAsync('get.regions');
+    }
+
+    static async setRegions(content) {
+        return this._triggerAsync('set.regions', {content});
+    }
+
+    static async updateMod(repo, versionTag = null) {
         return this._triggerAsync('update.mod', {
-            url: repo
+            url: repo,
+            versionTag
         });
     }
 
@@ -69,6 +92,10 @@ export class SystemController {
 
     static async checkConfig() {
         return await this._triggerAsync('check.config');
+    }
+
+    static async getConfig() {
+        return await this._triggerAsync('get.config');
     }
 
     static async updateConfig(amongUsFilePath) {

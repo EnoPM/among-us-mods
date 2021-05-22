@@ -4,13 +4,20 @@ import PlayIcon from "./Icons/PlayIcon.jsx";
 import UninstallIcon from "./Icons/UninstallIcon.jsx";
 import GithubIcon from "./Icons/GithubIcon.jsx";
 import {SystemController} from "../client/system";
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
+import FileIcon from "./Icons/FileIcon.jsx";
 
 class ModsList extends React.Component {
 
+    onSelectionChange = mod => {
+        this.props.changeCurrentSelection(this.props.currentSelection === mod.repo ? null : mod.repo);
+    }
+
     render() {
         return (
-            <ul className="mods-list">
-                {this.props.mods.map(mod => <Mod onPlay={this.props.onPlay} onUninstall={this.props.onUninstall} onUpdate={this.props.onUpdate} key={mod.repo} mod={mod}/>)}
+            <ul className="mods-list" onClick={this.props.resetCurrentSelection}>
+
+                {this.props.mods.map(mod => <Mod selected={mod && this.props.currentSelection === mod.repo} onUpdateVersion={this.props.onUpdateVersion} onSelectionChange={this.onSelectionChange} onPlay={this.props.onPlay} onUninstall={this.props.onUninstall} onUpdate={this.props.onUpdate} key={mod.repo} mod={mod}/>)}
             </ul>
         );
     }
@@ -29,16 +36,28 @@ class Mod extends React.Component {
     }
 
     onUpdateClick = e => {
+        e.stopPropagation();
         if(!this.state.updateLoading) {
             if(this.state.hasUpdate && this.state.lastVersion && this.state.lastVersion !== this.props.mod.version) {
                 this.props.onUpdate(this.props.mod.repo);
             } else {
-                this.setState({updateLoading: true}, () => {
-                    this.checkUpdate();
+                this.setState({updateLoading: true}, async () => {
+                    await this.checkUpdate();
                 });
             }
         }
+    }
 
+    onUpdateVersionClick = e => {
+        e.stopPropagation();
+        if(!this.state.updateLoading) {
+            this.props.onUpdateVersion(this.props.mod.repo);
+        }
+    }
+
+    onOpenFolderClick = async e => {
+        e.stopPropagation();
+        await SystemController.openFolder(this.props.mod.repo);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -49,12 +68,9 @@ class Mod extends React.Component {
         }
     }
 
-    onUninstallClick = () => {
+    onUninstallClick = (e) => {
+        e.stopPropagation();
         this.props.onUninstall(this.props.mod.repo);
-    }
-
-    onPlayClick = () => {
-        this.props.onPlay(this.props.mod.repo);
     }
 
     checkUpdate = async () => {
@@ -76,8 +92,24 @@ class Mod extends React.Component {
         };
     }
 
-    openRepo = async () => {
-        await SystemController.openLink(this.props.mod.repo);
+    openRepo = async (e) => {
+        if(this.props.selected) {
+            e.stopPropagation();
+            await SystemController.openLink(this.props.mod.repo);
+        }
+    }
+
+    onClick = e => {
+        e.stopPropagation();
+        if(!this.state.updateLoading) {
+            this.props.onSelectionChange(this.props.mod);
+        }
+    }
+
+    onContextMenu = e => {
+        if(!this.props.selected) {
+            this.props.onSelectionChange(this.props.mod);
+        }
     }
 
     render() {
@@ -86,41 +118,54 @@ class Mod extends React.Component {
         const updateClassName = 'update' + (this.state.updateLoading ? ' loading' : '') + (hasUpdate ? ' has-update' : '');
         const updateTitle = this.state.updateLoading ? "Vérification des mises à jour..." : (hasUpdate ? "Une mise à jour est disponible" : "Vérifier les mises à jour")
         return (
-            <li className="mod-item">
-                <div className="infos">
-                    <div className="name">
-                        {data.name}
-                        <div className={"version" + (hasUpdate? ' has-update' : '')}>
-                            {this.props.mod.version}
-                        </div>
-                        {hasUpdate ? (
-                            <>
-                                <div className="arrow">➜</div>
-                                <div className="version">
-                                    {this.state.lastVersion}
+            <>
+                <ContextMenuTrigger id={this.props.mod.repo}>
+                    <li onContextMenu={this.onContextMenu} className={"mod-item" + (this.props.selected ? " selected" : '')} onClick={this.onClick}>
+                        <div className="infos">
+                            <div className="name">
+                                {data.name}
+                                <div className={"version" + (hasUpdate? ' has-update' : '')}>
+                                    {this.props.mod.version}
                                 </div>
-                            </>
+                                {hasUpdate ? (
+                                    <>
+                                        <div className="arrow">➜</div>
+                                        <div className="version">
+                                            {this.state.lastVersion}
+                                        </div>
+                                    </>
 
-                        ) : null}
-                    </div>
-                    <div className="github" onClick={this.openRepo}>
-                        <GithubIcon/> {data.author}/{data.name}
-                    </div>
-                </div>
-                <div className="buttons">
-                    <div className="uninstall" title="Désinstaller" onClick={this.onUninstallClick}>
-                        <UninstallIcon/>
-                    </div>
-                    <div className={updateClassName} title={updateTitle} onClick={this.onUpdateClick}>
-                        <UpdateIcon/>
-                    </div>
-                    {!hasUpdate && !this.state.updateLoading ? (
-                        <div className="play" title="Lancer le jeu" onClick={this.onPlayClick}>
-                            <PlayIcon/>
+                                ) : null}
+                            </div>
+                            <div className="github" onClick={this.openRepo}>
+                                <GithubIcon/> {data.author}/{data.name}
+                            </div>
                         </div>
-                    ) : null}
-                </div>
-            </li>
+                        <div className="buttons">
+                            <div className={updateClassName} title={updateTitle} onClick={this.onUpdateClick}>
+                                <UpdateIcon/>
+                            </div>
+                        </div>
+                    </li>
+                </ContextMenuTrigger>
+                <ContextMenu id={this.props.mod.repo}>
+                    <MenuItem onClick={this.onUpdateClick}>
+                        {hasUpdate ? "Mise à jour" : "Vérifier les mises à jour"}
+                    </MenuItem>
+                    <MenuItem onClick={this.onUpdateVersionClick}>
+                        Versions précédentes
+                    </MenuItem>
+                    <MenuItem onClick={this.onOpenFolderClick}>
+                        Ouvrir le dossier du mod
+                    </MenuItem>
+                    <MenuItem onClick={this.openRepo}>
+                        Ouvrir le dépôt du mod
+                    </MenuItem>
+                    <MenuItem onClick={this.onUninstallClick}>
+                        <span className="danger">Désinstaller</span>
+                    </MenuItem>
+                </ContextMenu>
+            </>
         );
     }
 }

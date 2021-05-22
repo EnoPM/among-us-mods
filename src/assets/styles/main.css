@@ -14,6 +14,174 @@ svg {
   fill: currentColor;
 }
 
+.advanced {
+  width: 100%;
+}
+.advanced .advanced-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+.advanced .advanced-content button.button {
+  margin: 7px 0;
+}
+.advanced .advanced-content button.button span {
+  font-size: 13px;
+}
+.advanced .advanced-selector {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  color: #a3a49e;
+  font-size: 15px;
+}
+.advanced .advanced-selector svg {
+  height: 13px;
+  width: 13px;
+  margin: 0 5px;
+}
+
+p.error {
+  margin-top: 2px;
+  font-size: 13px;
+  color: #db2020;
+}
+
+.big-icon svg {
+  width: 200px;
+  height: 200px;
+  transition: 300ms ease-in-out;
+}
+.big-icon:hover svg {
+  fill: #2551a9;
+  transition: 300ms ease-in-out;
+}
+
+.credits {
+  display: flex;
+  align-items: center;
+  color: #3b41ec;
+  cursor: pointer;
+  font-size: 25px;
+}
+.credits svg {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.label-text {
+  display: block;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.input-text {
+  background-color: #40444b;
+  border: solid 1px transparent;
+  padding: 5px 3px;
+  outline: none;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+.input-text.error {
+  border-color: #db2020;
+}
+
+.modal-window {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: #2f3136;
+  padding: 5px;
+  box-sizing: border-box;
+  border-top: solid 2px #b0a8a8;
+}
+.modal-window .close-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+}
+.modal-window .close-button svg {
+  height: 30px;
+  width: 30px;
+  fill: #b9bbbe;
+}
+.modal-window .close-button:hover svg {
+  fill: #707070;
+}
+.modal-window .title {
+  color: #ffffff;
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+.button {
+  width: var(--btn-width);
+  height: var(--btn-height);
+  cursor: pointer;
+  background: var(--btn-color);
+  border: 1px solid var(--btn-text-color);
+  outline: none;
+  transition: 1s ease-in-out;
+  position: relative;
+}
+.button span {
+  color: var(--btn-text-color);
+  font-size: 18px;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+.button:hover {
+  transition: 1s ease-in-out;
+  background: var(--btn-hover-color);
+}
+.button:hover span {
+  color: var(--btn-text-hover-color);
+}
+.button:hover svg.button-border {
+  stroke-dashoffset: var(--btn-stroke-dashoffset1);
+}
+.button svg.button-border {
+  position: absolute;
+  left: 0;
+  top: 0;
+  fill: none;
+  stroke: var(--btn-text-color);
+  stroke-dasharray: var(--btn-stroke-dasharray1) var(--btn-stroke-dasharray2);
+  stroke-dashoffset: var(--btn-stroke-dashoffset2);
+  transition: 1s ease-in-out;
+}
+
+.react-contextmenu {
+  background-color: #202225;
+}
+.react-contextmenu .react-contextmenu-item {
+  padding: 5px 5px;
+  font-size: 13px;
+}
+.react-contextmenu .react-contextmenu-item .danger {
+  color: red;
+  font-weight: bold;
+}
+.react-contextmenu .react-contextmenu-item:hover {
+  background-color: rgba(37, 81, 169, 0.53);
+}
+
 .window-bar {
   background-color: #202225;
   padding: 2px 5px;
@@ -68,16 +236,22 @@ svg {
 .content .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  background-color: #252529;
 }
-.content .header > svg {
-  height: 30px;
-  width: 30px;
-  margin-left: 3px;
+.content .header .right-buttons {
+  margin-right: 10px;
+}
+.content .header .right-buttons svg {
+  height: 25px;
+  width: 25px;
+  margin: 5px;
   cursor: pointer;
   color: #515151;
 }
-.content .header > svg:hover {
+.content .header .right-buttons svg:hover {
   color: #604638;
+  animation: spin 4s infinite linear;
 }
 .content .overlay {
   position: absolute;
@@ -88,6 +262,7 @@ svg {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .content .overlay .modal {
+  height: 100%;
   position: absolute;
   background-color: #2f3136;
   left: 0;
@@ -119,41 +294,48 @@ svg {
 .content .overlay .modal .btn.cancel:hover {
   background-color: #db2020;
 }
-.content .overlay .modal.modal-download-mod {
-  height: 250px;
-}
-.content .overlay .modal.modal-download-mod .title {
+.content .overlay .modal .title {
   color: #ffffff;
   width: 100%;
   text-align: center;
   font-size: 25px;
   margin-bottom: 20px;
+  margin-top: 20px;
   text-transform: uppercase;
 }
-.content .overlay .modal.modal-download-mod .download {
+.content .overlay .modal .download {
   width: 100%;
   box-sizing: border-box;
 }
-.content .overlay .modal.modal-download-mod .download .info {
+.content .overlay .modal .download .info {
   font-size: 13px;
   margin-bottom: 5px;
 }
-.content .overlay .modal.modal-download-mod .download .progress-bar {
+.content .overlay .modal .download .progress-bar {
   width: 100%;
   box-sizing: border-box;
   background-color: #202225;
   border: solid 1px #202225;
   height: 4px;
 }
-.content .overlay .modal.modal-download-mod .download .progress-bar .progression {
+.content .overlay .modal .download .progress-bar .progression {
   height: 100%;
   background-color: #5eb037;
 }
-.content .overlay .modal.modal-download-mod .confirm-box .confirm-message {
+.content .overlay .modal .download .confirm-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 30px;
+  padding-top: 20px;
+  box-sizing: border-box;
+  align-items: center;
+}
+.content .overlay .modal .download .confirm-box .confirm-message {
   font-size: 1.1rem;
   text-align: center;
 }
-.content .overlay .modal.modal-download-mod .confirm-box .confirm-buttons {
+.content .overlay .modal .download .confirm-box .confirm-buttons {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -163,7 +345,7 @@ svg {
   box-sizing: border-box;
 }
 .content .overlay .modal.modal-add-mod {
-  height: 250px;
+  height: 100%;
 }
 .content .overlay .modal.modal-add-mod .title {
   color: #ffffff;
@@ -178,6 +360,8 @@ svg {
   width: 100%;
   margin-bottom: 5px;
   font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }
 .content .overlay .modal.modal-add-mod input {
   background-color: #40444b;
@@ -198,10 +382,11 @@ svg {
 }
 .content .overlay .modal.modal-add-mod p.description {
   margin-top: 2px;
-  font-size: 11px;
+  font-size: 12px;
 }
 .content .overlay .modal.modal-add-mod p.description span {
-  font-style: italic;
+  padding: 2px;
+  background-color: black;
 }
 .content .overlay .modal.modal-add-mod .buttons {
   position: absolute;
@@ -212,39 +397,67 @@ svg {
   justify-content: space-between;
   box-sizing: border-box;
 }
-.content .overlay .modal.modal-add-mod .buttons .author {
+.content .overlay .modal.modal-add-mod .author {
   display: flex;
   align-items: flex-end;
   padding-bottom: 10px;
   padding-left: 10px;
-  font-size: 13px;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
-.content .overlay .modal.modal-add-mod .buttons .author .credits {
+.content .overlay .modal.modal-add-mod .author .text {
+  font-weight: bold;
+  margin-right: 10px;
+}
+.content .overlay .modal.modal-add-mod .author .credits {
   display: flex;
   align-items: center;
   color: #3b41ec;
   cursor: pointer;
 }
-.content .overlay .modal.modal-add-mod .buttons .author .credits svg {
+.content .overlay .modal.modal-add-mod .author .credits svg {
   height: 20px;
   width: 20px;
   margin-right: 5px;
 }
-.content .add-mod {
+.content .left-buttons {
+  display: flex;
+}
+.content .left-buttons .add-mod {
   box-sizing: border-box;
   border: none;
-  background-color: #3d7325;
-  padding: 10px 10px;
+  padding: 5px;
   margin: 10px 5px;
-  text-transform: uppercase;
-  color: white;
   outline: none;
   font-weight: bold;
   cursor: pointer;
-  width: calc(50% - 30px);
+  background: transparent;
 }
-.content .add-mod:hover {
-  background-color: #5eb037;
+.content .left-buttons .add-mod svg {
+  height: 25px;
+  width: 25px;
+  fill: #3d7325;
+}
+.content .left-buttons .add-mod:hover svg {
+  fill: #5eb037;
+}
+.content .left-buttons .manage-servers {
+  box-sizing: border-box;
+  border: none;
+  padding: 5px;
+  margin: 10px 0;
+  outline: none;
+  font-weight: bold;
+  cursor: pointer;
+  background: transparent;
+}
+.content .left-buttons .manage-servers svg {
+  height: 25px;
+  width: 25px;
+  fill: #3b41ec;
+}
+.content .left-buttons .manage-servers:hover svg {
+  fill: #8f94fb;
 }
 .content .play-vanilla {
   box-sizing: border-box;
@@ -262,14 +475,28 @@ svg {
 .content .play-vanilla:hover {
   background-color: #8f94fb;
 }
+.content .play-button {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .content .mods-list {
   width: 100%;
+  height: calc(100vh - 160px);
+  overflow: auto;
 }
 .content .mods-list .mod-item {
   padding: 7px 7px;
   box-sizing: border-box;
   width: 100%;
-  height: 60px;
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -317,16 +544,16 @@ svg {
   height: 30px;
   width: 30px;
 }
-.content .mods-list .mod-item .buttons .update, .content .mods-list .mod-item .buttons .uninstall, .content .mods-list .mod-item .buttons .play {
+.content .mods-list .mod-item .buttons .update, .content .mods-list .mod-item .buttons .uninstall, .content .mods-list .mod-item .buttons .open-folder {
   cursor: pointer;
   padding: 5px;
   display: none;
 }
-.content .mods-list .mod-item .buttons .update.has-update, .content .mods-list .mod-item .buttons .uninstall.has-update, .content .mods-list .mod-item .buttons .play.has-update {
+.content .mods-list .mod-item .buttons .update.has-update, .content .mods-list .mod-item .buttons .uninstall.has-update, .content .mods-list .mod-item .buttons .open-folder.has-update {
   display: block;
   color: #f17606;
 }
-.content .mods-list .mod-item .buttons .update.loading, .content .mods-list .mod-item .buttons .uninstall.loading, .content .mods-list .mod-item .buttons .play.loading {
+.content .mods-list .mod-item .buttons .update.loading, .content .mods-list .mod-item .buttons .uninstall.loading, .content .mods-list .mod-item .buttons .open-folder.loading {
   display: block;
   animation: spin 2s linear infinite;
 }
@@ -337,11 +564,19 @@ svg {
   height: 25px;
   width: 25px;
 }
+.content .mods-list .mod-item.selected {
+  border-left: solid 5px #2551a9;
+  background-color: rgba(37, 81, 169, 0.27);
+}
+.content .mods-list .mod-item.selected .buttons .update, .content .mods-list .mod-item.selected .buttons .uninstall, .content .mods-list .mod-item.selected .buttons .open-folder {
+  display: block;
+}
+.content .mods-list .mod-item.selected:hover {
+  border-left: solid 5px #406ac1;
+}
 .content .mods-list .mod-item:hover {
   background-color: #393c42;
-}
-.content .mods-list .mod-item:hover .buttons .update, .content .mods-list .mod-item:hover .buttons .uninstall, .content .mods-list .mod-item:hover .buttons .play {
-  display: block;
+  background-color: rgba(37, 81, 169, 0.53);
 }
 
 @keyframes spin {
