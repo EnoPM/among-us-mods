@@ -36,6 +36,7 @@
     "ps-list": "^7.2.0",
     "react": "^16.13.1",
     "react-circular-progressbar": "^2.0.4",
+    "react-color": "^2.19.3",
     "react-contextmenu": "^2.14.0",
     "react-dom": "^16.13.1",
     "react-icomoon": "^2.2.4",
