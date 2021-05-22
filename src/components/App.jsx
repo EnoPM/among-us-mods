@@ -32,7 +32,7 @@ class App extends Component {
         amongUsIsRunning: false,
         currentSelection: null,
         updateRepoVersion: null,
-        privateServersModal: true
+        privateServersModal: false
     }
 
     interval = null;

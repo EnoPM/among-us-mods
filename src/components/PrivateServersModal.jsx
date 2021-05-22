@@ -2,7 +2,6 @@ import React from "react";
 import {SystemController} from "../client/system";
 import ModalWindow from "./ModalWindow.jsx";
 import Button from "./Parts/Button.jsx";
-import {SketchPicker} from 'react-color';
 import AddPrivateServersModal from "./AddPrivateServersModal.jsx";
 import {ContextMenu, ContextMenuTrigger, MenuItem} from "react-contextmenu";
 import EditPrivateServersModal from "./EditPrivateServersModal.jsx";
@@ -24,7 +23,6 @@ class PrivateServersModal extends React.Component {
         SystemController.getRegions().then(regions => {
             if (regions) {
                 this.setState(regions);
-                console.log(regions);
             }
         });
         fetch(OFFICIAL_REGIONS_URL).then(async response => {

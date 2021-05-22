@@ -8,22 +8,25 @@ const lnk = require('lnk');
 const psList = require('ps-list');
 const process = require('process');
 const path = require('path');
+const fetch = require('electron-main-fetch');
+
+const VANILLA_FILES_URL = 'https://raw.githubusercontent.com/clicpanel/among-us-mods/master/default/vanilla_files.json';
 
 class AmongUsMods {
 
-    static VANILLA_FILES = [
-        'Among Us_Data',
-        'Among Us.exe',
-        'GameAssembly.dll',
-        'UnityCrashHandler32.exe',
-        'UnityPlayer.dll',
-        'baselib.dll',
-        'UnityCrashHandler64.exe'
-    ];
+    static VANILLA_FILES = null;
 
     static LOCAL_DATA_EXCLUDES_FILES = [
         'playerStats2'
     ];
+
+    static getVanillaFiles = async () => {
+        if(AmongUsMods.VANILLA_FILES === null) {
+            const response = await fetch(VANILLA_FILES_URL);
+            AmongUsMods.VANILLA_FILES = await response.json();
+        }
+        return AmongUsMods.VANILLA_FILES;
+    }
 
     /**
      * @param {string} dataPath
@@ -246,9 +249,10 @@ class AmongUsMods {
     }
 
     _onUpdateConfig = async (e, {amongUsFilePath}) => {
+        const vanillaFiles = await AmongUsMods.getVanillaFiles();
         if (fs.existsSync(amongUsFilePath) && amongUsFilePath.endsWith('Among Us.exe')) {
             const folderPath = amongUsFilePath.replace('Among Us.exe', '');
-            if (AmongUsMods.VANILLA_FILES.map(fileName => fs.existsSync(folderPath + fileName))) {
+            if (vanillaFiles.map(fileName => fs.existsSync(folderPath + fileName))) {
                 await this.storage.setConfig({amongUsFolder: amongUsFilePath});
                 return true;
             }
@@ -317,10 +321,11 @@ class AmongUsMods {
     }
 
     restoreVanilla = async () => {
+        const vanillaFiles = await AmongUsMods.getVanillaFiles();
         const amongUsFolder = await this.getAmongUsInstallationFolderPath();
         const files = await fs.promises.readdir(amongUsFolder);
         for (const file of files) {
-            if(!AmongUsMods.VANILLA_FILES.includes(file)) {
+            if(!vanillaFiles.includes(file)) {
                 const filePath = amongUsFolder + file;
                 if((await fs.promises.lstat(filePath)).isDirectory()) {
                     await this.exec(`rmdir "${filePath}"`);
