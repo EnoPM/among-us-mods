@@ -2,8 +2,8 @@
 ## Gestionnaire de mod pour Among Us
 La gestion des mods pour Among Us simplifiée au maximum. Grâce à cette application vous pourrez installer, mettre à jour et restaurer une version précédente des mods Among Us sans aucune manipulation.
 
-### [Télécharger Among Us Mods v3.0.1 pour Windows (installeur)](https://github.com/clicpanel/among-us-mods/releases/download/v3.0.1/Among.Us.-.Mods.installer.exe)
-### [Télécharger Among Us Mods v3.0.1 pour Windows (portable)](https://github.com/clicpanel/among-us-mods/releases/download/v3.0.1/Among.Us.-.Mods.portable.zip)
+### [Télécharger Among Us Mods v3.0.1 pour Windows (avec installeur)](https://github.com/clicpanel/among-us-mods/releases/download/v3.0.1/Among.Us.-.Mods.installer.exe)
+### [Télécharger Among Us Mods v3.0.1 pour Windows (sans installeur)](https://github.com/clicpanel/among-us-mods/releases/download/v3.0.1/Among.Us.-.Mods.portable.zip)
 
 > Cette application utilise les liens symboliques pour greffer les mods à votre jeu Among Us. De cette façon vous n'avez pas besoin de créer une copie de votre dossier contenant le jeu pour y installer des mods.
 
@@ -13,6 +13,7 @@ La gestion des mods pour Among Us simplifiée au maximum. Grâce à cette applic
 - [Compatibilité des mods](#compatibilité-des-mods)
 - [Signaler un problème](#signaler-un-problème)
 - [Contributions](#contributions)
+- [Instructions de compilation](#instructions-de-compilation)
 
 ### Première utilisation
 Lors du premier lancement de l'application vous vous retrouverez sur la configuration. 
@@ -60,3 +61,14 @@ Verifier si le problème rencontré n'a pas déjà été signalé dans [les issu
 
 ### Contributions
 Ce projet accepte les `pull requests` si le code est propre, respecte les conventions du projet et si la modification apportée est jugée pertinente.
+
+### Instructions de compilation
+#### Prérequis
+- [NodeJS](https://nodejs.org/fr/download/)
+#### Instructions
+- [Télécharger le code source de l'application](https://github.com/clicpanel/among-us-mods/archive/refs/heads/master.zip)
+- Ouvrir un terminal et accéder au dossier content le code source
+- Exécuter la commande `npm install`.
+- Pendant le développement utiliser le hot-reload en exécutant la commande `npm start`.
+- Pour compiler l'application en mode production, exécuter la commande `npm run publish`.
+- L'application compilée se trouve dans le dossier `./release-builds/among-us-mods-win32-ia32/`.
