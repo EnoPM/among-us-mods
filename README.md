@@ -57,7 +57,7 @@ Les mods qui souhaitent être compatible avec cette application doivent respecte
 - Les fichiers dans l'archive de la release ne doivent pas être dans un sous-dossier.
   
 ### Signaler un problème
-Verifier si le problème rencontré n'a pas déjà été signalé dans [les issues](https://github.com/clicpanel/among-us-mod-manager/issues). Si ça n'est pas le cas vous pouvez [ouvrir une nouvelle issue](https://github.com/clicpanel/among-us-mods/issues/new).
+Verifier si le problème rencontré n'a pas déjà été signalé dans [les issues](https://github.com/clicpanel/among-us-mods/issues). Si ça n'est pas le cas vous pouvez [ouvrir une nouvelle issue](https://github.com/clicpanel/among-us-mods/issues/new).
 
 ### Contributions
 Ce projet accepte les `pull requests` si le code est propre, respecte les conventions du projet et si la modification apportée est jugée pertinente.
