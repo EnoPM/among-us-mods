@@ -81,7 +81,7 @@ ipcMain.handle('minimize.app', async e => {
 });
 
 ipcMain.handle('open.console', async e => {
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools({mode: 'detach'});
 });
 
 amongUsMods.start();
