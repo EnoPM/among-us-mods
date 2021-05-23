@@ -52,9 +52,8 @@ Vous devrez sélectionner l'exécutable `Among Us.exe` que l'application utilise
 
 ### Compatibilité des mods
 Les mods qui souhaitent être compatible avec cette application doivent respecter certains critères :
-- Disposer d'une archive `.zip` dans chaque release de version contenant la version BepInEx compatible et le plugin `.dll` du mod.
-- (optionnel) Disposer du plugin `.dll` dans chaque release uniquement si la release précédente utilise la même version de BepInEx.
-- Les fichiers dans l'archive de la release ne doivent pas être dans un sous-dossier.
+- Disposer d'une archive `.zip` dans chaque release de version contenant la version BepInEx compatible et le plugin `.dll` du mod. Les fichiers dans l'archive de la release ne doivent pas être dans un sous-dossier.
+- (optionnel) Disposer du plugin `.dll` dans chaque release uniquement si la release précédente utilise la même version de BepInEx. Ajouter le plugin `.dll` dans les fichiers de la release permettra une mise à jour plus rapide côté client.
   
 ### Signaler un problème
 Verifier si le problème rencontré n'a pas déjà été signalé dans [les issues](https://github.com/clicpanel/among-us-mods/issues). Si ça n'est pas le cas vous pouvez [ouvrir une nouvelle issue](https://github.com/clicpanel/among-us-mods/issues/new).
