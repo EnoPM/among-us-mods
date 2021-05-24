@@ -278,7 +278,8 @@ class AmongUsMods {
     }
 
     _onModsGet = async e => {
-        return this.storage.get('mods');
+        const mods = await this.storage.get('mods');
+        return Array.isArray(mods) ? mods : [];
     }
 
     // Callback generators
