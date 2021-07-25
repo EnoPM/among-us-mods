@@ -66,7 +66,7 @@ Ce projet accepte les `pull requests` si le code est propre, respecte les conven
 - [NodeJS](https://nodejs.org/fr/download/)
 #### Instructions
 - [Télécharger le code source de l'application](https://github.com/clicpanel/among-us-mods/archive/refs/heads/master.zip)
-- Ouvrir un terminal et accéder au dossier content le code source
+- Ouvrir un terminal et accéder au dossier contenant le code source
 - Exécuter la commande `npm install`.
 - Pendant le développement utiliser le hot-reload en exécutant la commande `npm start`.
 - Pour compiler l'application en mode production, exécuter la commande `npm run publish`.
