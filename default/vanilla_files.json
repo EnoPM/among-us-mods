@@ -4,6 +4,5 @@
   "GameAssembly.dll",
   "UnityCrashHandler32.exe",
   "UnityPlayer.dll",
-  "baselib.dll",
-  "UnityCrashHandler64.exe"
+  "baselib.dll"
 ]
