@@ -4,7 +4,7 @@ const {ipcMain, shell} = require('electron');
 const fs = require('fs');
 const GitReleases = require("./GitReleases");
 const {exec, spawn} = require('child_process');
-const lnk = require('lnk');
+const symlinkOrCopySync = require('symlink-or-copy').sync;
 const psList = require('ps-list');
 const process = require('process');
 const path = require('path');
@@ -39,6 +39,7 @@ class AmongUsMods {
             modsFolder: dataPath + '/mods'
         }
         this.installer = new ModInstaller(this.paths);
+        require('update-electron-app')()
     }
 
     start = () => {
@@ -151,11 +152,8 @@ class AmongUsMods {
         const files = await fs.promises.readdir(folder);
         const amongUsFolder = await this.getAmongUsInstallationFolderPath();
         for (const fileName of files) {
-            const filePath = `${folder}/${fileName}`;
-            if((await fs.promises.lstat(filePath)).isFile()) {
-                await lnk(`${folder}/${fileName}`, amongUsFolder);
-            } else {
-                await lnk(`${folder}/${fileName}`, amongUsFolder);
+            if(fileName !== 'steam_appid.txt') {
+                symlinkOrCopySync(`${folder}/${fileName}`, `${amongUsFolder}${fileName}`);
             }
         }
         spawn(amongUsFolder + 'Among Us.exe', {
@@ -177,7 +175,6 @@ class AmongUsMods {
         const github = GitReleases.parseRepo(url);
         const gits = await GitReleases.fetchReleases(github.repo);
         const [git] = versionTag ? gits.filter(git => git.tag_name === versionTag) : gits;
-        console.log(git);
         const {assets} = git;
         const [dllAsset] = versionTag ? [] : assets.filter(a => a.hasOwnProperty('browser_download_url') && a.browser_download_url.endsWith('.dll'));
         const [asset] = dllAsset ? [dllAsset] : assets.filter(a => a.hasOwnProperty('browser_download_url') && a.browser_download_url.endsWith('.zip'));
@@ -335,6 +332,7 @@ class AmongUsMods {
                 }
             }
         }
+        await fs.promises.writeFile(`${amongUsFolder}/steam_appid.txt`, '945360\n');
         return true;
     }
 }

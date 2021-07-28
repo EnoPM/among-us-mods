@@ -46,7 +46,9 @@ class UpdateConfigModal extends React.Component {
     }
 
     onConsoleClick = async () => {
-        await SystemController.openConsole();
+        if(this.state.showAdvancedSettings) {
+            await SystemController.openConsole();
+        }
     }
 
     onClose = async () => {
@@ -62,8 +64,10 @@ class UpdateConfigModal extends React.Component {
     }
 
     onRestoreAppDataClick = async () => {
-        if(await SystemController.checkConfig()) {
-            this.props.restoreAppData();
+        if(this.state.showAdvancedSettings) {
+            if(await SystemController.checkConfig()) {
+                this.props.restoreAppData();
+            }
         }
     }
 
