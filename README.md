@@ -1,10 +1,8 @@
-# [Among Us - Mods v3.0.2](https://github.com/clicpanel/among-us-mods)
+# [Among Us - Mods v3.1.0](https://github.com/clicpanel/among-us-mods)
 ## Gestionnaire de mod pour Among Us
 La gestion des mods pour Among Us simplifiée au maximum. Grâce à cette application vous pourrez installer, mettre à jour et restaurer une version précédente des mods Among Us sans aucune manipulation.
 
-### [Télécharger Among Us Mods v3.0.2 pour Windows (avec installeur)](https://github.com/clicpanel/among-us-mods/releases/download/v3.0.2/Among.Us.-.Mods.installer.exe)
-### [Télécharger Among Us Mods v3.0.2 pour Windows (sans installeur)](https://github.com/clicpanel/among-us-mods/releases/download/v3.0.2/Among.Us.-.Mods.portable.zip)
-
+### [Télécharger Among Us Mods v3.1.0 pour Windows (avec installeur)](https://github.com/clicpanel/among-us-mods/releases/download/v3.1.0/Among.Us.-.Mods.installer.exe)
 > Cette application utilise les liens symboliques pour greffer les mods à votre jeu Among Us. De cette façon vous n'avez pas besoin de créer une copie de votre dossier contenant le jeu pour y installer des mods.
 
 ## Sommaire

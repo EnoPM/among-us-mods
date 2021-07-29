@@ -39,7 +39,6 @@ class AmongUsMods {
             modsFolder: dataPath + '/mods'
         }
         this.installer = new ModInstaller(this.paths);
-        require('update-electron-app')()
     }
 
     start = () => {

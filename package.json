@@ -1,8 +1,12 @@
 {
   "name": "among-us-mods",
-  "version": "3.1.0",
+  "version": "3.0.5",
   "description": "Among Us Mods",
   "homepage": "https://github.com/clicpanel/among-us-mods",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clicpanel/among-us-mods"
+  },
   "main": "main.js",
   "scripts": {
     "prod": "webpack --mode production --config webpack.build.config.js && electron --noDevServer .",
